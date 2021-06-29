@@ -1,0 +1,28 @@
+{
+  "name": "Stratbook",
+  "version": "1.0.0",
+  "description": "CS:GO Stratbook App with NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dantran16/Stratbook.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dantran16/Stratbook/issues"
+  },
+  "homepage": "https://github.com/dantran16/Stratbook#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "ejs-mate": "^3.0.0",
+    "express": "^4.17.1",
+    "joi": "^17.4.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.13.0"
+  }
+}

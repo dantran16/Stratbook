@@ -1,0 +1,25 @@
+<% layout('/layouts/boilerplate')%>
+<h1>All strategies</h1>
+<div>
+  <a href="/strategies/new">Add strategy</a>
+</div>
+<% for (let strategy of strategies) {%>
+  <div class="card mb-3">
+    <div class="row">
+      <div class="col-md-4">
+        <img class="img-fluid" alt="" src="/img/<%=strategy.map%>.jpeg">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= strategy.name%>
+          </h5>
+          <p class="card-text"><%=strategy.description%></p>
+          <a class="btn btn-primary" href="/strategies/<%=strategy.id%>">View <%=strategy.name%></a>
+        </div>
+      </div>
+    </div>
+  </div>
+<% } %>
+</body>
+</html>

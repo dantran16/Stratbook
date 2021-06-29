@@ -1,0 +1,28 @@
+<% layout('/layouts/boilerplate')%>
+<div class="row">
+  <h1 class="text-center">Edit Strategy</h1>
+  <div class="col-6 offset-3">
+    <form action="/strategies/<%=strategy._id%>?_method=PUT" method="POST" novalidate class="validated-form">
+      <div class="mb-3">
+        <label class="form-label" for="name">Name</label>
+        <input class="form-control" type="text" id="name" name="strategy[name]" value="<%=strategy.name%>" required>
+        <div class="valid-feedback"> Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="map">Map</label>
+        <input class="form-control" type="text" id="map" name="strategy[map]" value="<%=strategy.map%>" required>
+        <div class="valid-feedback"> Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea class="form-control" type="text" id="description" name="strategy[description]" required><%=strategy.description%></textarea>
+        <div class="valid-feedback"> Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-info">Update strategy</button>
+      </div>
+    </form>
+    <a href="/strategies/<%=strategy._id%>">Back to strategy</a>
+    
+  </div>
+</div>
