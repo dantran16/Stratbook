@@ -4,13 +4,18 @@ const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 //importing local packages
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError.js');
 const { strategySchema } = require('./schemas.js');
 const Strategy = require('./models/strategy');
-const Player = require('./models/player')
+const Player = require('./models/player');
+
+//Routes
+const strategies = require('./routes/strategies');
 
 //Mongoose setup
 mongoose.connect('mongodb://localhost:27017/stratbook', {
@@ -33,70 +38,39 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 //Express middleware functions
-app.use(express.urlencoded({extended: true}));
-//to allow us to use other HTTP verbs besides just POST and GET
-app.use(methodOverride('_method'));
+app.use(express.urlencoded({extended: true}));  //Allows us to parse JSON files
+app.use(methodOverride('_method')); //to allow us to use other HTTP verbs besides just POST and GET
+app.use(express.static(path.join(__dirname, 'public')));  //Allows us to use public directory on our templates
 
-// Error handling for strategies
-const validateStrategy = (req, res, next) => {
-  const { error } = strategySchema.validate(req.body);
-  if (error) {
-      const msg = error.details.map(el => el.message).join(',')
-      throw new ExpressError(msg, 400)
-  } else {
-      next();
+//Setting up cookies
+const sessionConfig = {
+  secret: "secret",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7
   }
 }
+app.use(session(sessionConfig));
+app.use(flash());
+
+// Cookie/session variables
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  next();
+});
+
+app.use('/strategies', strategies);
+//app.use('/strategies/:id/players', players);
 
 //Home page
 app.get('/', (req, res) =>{
   res.render('home');
 })
 
-//Strategy home route / dashboard
-app.get('/strategies', catchAsync(async (req, res) =>{
-  const strategies = await Strategy.find({});
-  res.render('strategies/index', { strategies });
-}))
-
-//Strategy new route
-app.get('/strategies/new', (req, res) => {
-  res.render('strategies/new');
-})
-
-//Strategy new route to update the strategies home page
-app.post('/strategies', validateStrategy, catchAsync(async (req,res) => {
-  const strategy = new Strategy(req.body.strategy);
-  await strategy.save();
-  res.redirect(`/strategies/${strategy._id}`)
-}));
-
-//Strategy show route
-app.get('/strategies/:id', catchAsync(async (req, res) =>{
-  const strategy = await Strategy.findById(req.params.id);
-  console.log(strategy);
-  res.render('strategies/show', { strategy });
-}));
-
-//Edit Strategy route
-app.get('/strategies/:id/edit', catchAsync(async (req, res) =>{
-  const strategy = await Strategy.findById(req.params.id);
-  res.render('strategies/edit', { strategy });
-}))
-
-//Strategy edit route for updating
-app.put('/strategies/:id', validateStrategy, catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const strategy = await Strategy.findByIdAndUpdate(id, {...req.body.strategy});
-  res.redirect(`/strategies/${strategy._id}`);
-}))
-
-//Strategy delete route
-app.delete('/strategies/:id', catchAsync(async (req, res) =>{
-  const { id } = req.params;
-  await Strategy.findByIdAndDelete(id);
-  res.redirect('/strategies');
-}));
 
 app.all('*', (req, res, next) => {
   next(new ExpressError('Page not found!', 404));
