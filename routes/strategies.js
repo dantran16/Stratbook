@@ -5,6 +5,7 @@ const { strategySchema } = require('../schemas.js');
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
 const Strategy = require('../models/strategy');
+const Player = require('../models/player');
 
 //Map list
 const maps = ["de_inferno", "de_dust2", "de_mirage", "de_overpass", "de_ancient", "de_vertigo", "de_nuke"];
@@ -35,6 +36,17 @@ router.get('/new', (req, res) => {
 //Strategy new route to update the strategies home page
 router.post('/', validateStrategy, catchAsync(async (req,res) => {
   const strategy = new Strategy(req.body.strategy);
+  for (let i = 0; i < strategy.number; i++){
+    const player = new Player({
+      name: "",
+      role: "",
+      molotov: 0,
+      smoke: 0,
+      flashes: 0,
+      position: ""
+    });
+    console.log(player);
+  }
   await strategy.save();
   req.flash('success', 'Successfully added a new strategy');
   res.redirect(`/strategies/${strategy._id}`)

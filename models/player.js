@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const playerSchema = new Schema({
   name: {
     type: String, 
-    required: true,
   },
   role: {
     type: String,
@@ -30,6 +29,7 @@ const playerSchema = new Schema({
   },
   position: {
     type: String,
-    required: true
   },
 })
+
+module.exports = mongoose.model('Player', playerSchema);
