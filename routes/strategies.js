@@ -6,6 +6,9 @@ const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
 const Strategy = require('../models/strategy');
 
+//Map list
+const maps = ["de_inferno", "de_dust2", "de_mirage", "de_overpass", "de_ancient", "de_vertigo", "de_nuke"];
+
 // Error handling for strategies
 const validateStrategy = (req, res, next) => {
   const { error } = strategySchema.validate(req.body);
@@ -25,7 +28,8 @@ router.get('/', catchAsync(async (req, res) =>{
 
 //Strategy new route
 router.get('/new', (req, res) => {
-  res.render('strategies/new');
+  console.log(maps)
+  res.render('strategies/new', { maps });
 })
 
 //Strategy new route to update the strategies home page

@@ -10,7 +10,12 @@
       </div>
       <div class="mb-3">
         <label class="form-label" for="map">Map</label>
-        <input class="form-control" type="text" id="map" name="strategy[map]" required>
+        <select class="form-select" name="strategy[map]" id="map">
+          <option value=""> </option>
+          <% for(let map of maps){ %> 
+            <option value="<%= map %>"><%=map %> </option>
+          <% } %> 
+        </select>
         <div class="valid-feedback"> Looks good!</div>
       </div>
       <div class="mb-3">
