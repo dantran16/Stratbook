@@ -18,7 +18,7 @@ const playerSchema = new Schema({
         if (this.utility.length > 4) {
           return false;
         }
-        //Function to see if the specific grenade type has surpassed maximum capacity
+        //Function to see if the specific grenade type has surpassed maximum capacity (returns false)
         countCheck = (utility, max) => {
           const reducer = (accumulator, currentValue) => {
             if (currentValue.name === utility) {

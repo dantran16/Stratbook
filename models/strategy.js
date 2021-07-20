@@ -36,6 +36,10 @@ const StrategySchema = new Schema({
       }
     }
   ],
+  team: {
+    type: Schema.Types.ObjectId,
+    ref: 'Team'
+  }
 });
 
 module.exports = mongoose.model('Strategy', StrategySchema);
