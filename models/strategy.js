@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-const Player = require('./player')
 const Schema = mongoose.Schema;
+const Team = require('./team')
+const Player = require('./player')
 
 const StrategySchema = new Schema({
   name: {
