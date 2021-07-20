@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const Player = require('./player');
-const User = require('./user');
 const Schema = mongoose.Schema;
 
 

@@ -10,41 +10,36 @@ const playerSchema = new Schema({
     enum: ['entry', 'support', '2nd', 'IGL', 'AWP', 'lurk', 'fill']
   },
   utility: [{
-    name: {
-      type: String,
-      enum: ['molotov', 'grenade', 'smoke', 'flash', 'decoy']
-    },
-    description: {
-      type: String
-    },
-    // validate: {
-    //   validator: function (v) {
-    //     // A player cannot hold more than 4 pieces of utility 
-    //     if (this.utility.length > 4) {
-    //       return false;
-    //     }
-    //     //Function to see if the specific grenade type has surpassed maximum capacity
-    //     countCheck = (utility, max) => {
-    //       const reducer = (accumulator, currentValue) => {
-    //         if (currentValue.name === utility) {
-    //           accumulator + 1;
-    //         }
-    //       };
-    //       if (this.utility.reduce(reducer, 0) > max) {
-    //         return false;
-    //       }
-    //       return true;
-    //     }
-    //     //A player cannot hold more than one molotov
-    //     if (!countCheck('molotov', 1)) return false;
-    //     //A player cannot hold more than one grenade
-    //     if (!countCheck('grenade', 1)) return false;
-    //     //A player cannot hold more than 2 flashes
-    //     if (!countCheck('flash', 2)) return false;
-    //     //A player cannot hold more than 1 smoke
-    //     if (!countCheck('smoke', 1)) return false;
-    //   }
-    // }
+    type: Schema.Types.ObjectId,
+    ref: 'Utility',
+    validate: {
+      validator: function (v) {
+        // A player cannot hold more than 4 pieces of utility 
+        if (this.utility.length > 4) {
+          return false;
+        }
+        //Function to see if the specific grenade type has surpassed maximum capacity
+        countCheck = (utility, max) => {
+          const reducer = (accumulator, currentValue) => {
+            if (currentValue.name === utility) {
+              accumulator + 1;
+            }
+          };
+          if (this.utility.reduce(reducer, 0) > max) {
+            return false;
+          }
+          return true;
+        }
+        //A player cannot hold more than one molotov
+        if (!countCheck('molotov', 1)) return false;
+        //A player cannot hold more than one grenade
+        if (!countCheck('grenade', 1)) return false;
+        //A player cannot hold more than 2 flashes
+        if (!countCheck('flash', 2)) return false;
+        //A player cannot hold more than 1 smoke
+        if (!countCheck('smoke', 1)) return false;
+      }
+    }
   }],
   position: {
     type: String,
@@ -52,3 +47,4 @@ const playerSchema = new Schema({
 })
 
 module.exports = mongoose.model('Player', playerSchema);
+
