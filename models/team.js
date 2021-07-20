@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 const TeamSchema = new Schema({
   name: {
     type: String,
-    required: [True, "Team must have a name"]
+    required: [true, "Team must have a name"]
   },
   leader: {
     type: Schema.Types.ObjectId,

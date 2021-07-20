@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
+const Team = require('./team')
 
 const UserSchema = new Schema({
   email: {
@@ -8,7 +9,10 @@ const UserSchema = new Schema({
     required: true,
     unique: true
   },
-  team
+  team: {
+    type: Schema.Types.ObjectId,
+    ref: 'Team'
+  }
 })
 
 UserSchema.plugin(passportLocalMongoose); // Adds username + password + methods
