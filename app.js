@@ -63,6 +63,7 @@ app.use((req, res, next) => {
   next();
 });
 
+//Routes
 app.use('/strategies', strategies);
 //app.use('/strategies/:id/players', players);
 

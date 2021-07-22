@@ -1,91 +1,36 @@
 const express = require('express');
 const router = express.Router();
 
+const strategies = require('../controllers/strategies');
 const { strategySchema } = require('../schemas.js');
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
 const Strategy = require('../models/strategy');
 const Player = require('../models/player');
+const { validateStrategy } = require('../middleware');
 
-//Map list
-const maps = ["de_inferno", "de_dust2", "de_mirage", "de_overpass", "de_ancient", "de_vertigo", "de_nuke"];
 
-// Error handling for strategies
-const validateStrategy = (req, res, next) => {
-  const { error } = strategySchema.validate(req.body);
-  if (error) {
-      const msg = error.details.map(el => el.message).join(',')
-      throw new ExpressError(msg, 400)
-  } else {
-      next();
-  }
-}
-
-//Strategy home route / dashboard
-router.get('/', catchAsync(async (req, res) =>{
-  const strategies = await Strategy.find({});
-  res.render('strategies/index', { strategies });
-}))
+//Index route
+router.route('/')
+  .get(catchAsync(strategies.index))
+  .post(validateStrategy, catchAsync(strategies.createStrategy));
 
 //Strategy new route
-router.get('/new', (req, res) => {
-  console.log(maps)
-  res.render('strategies/new', { maps });
-})
+router.get('/new', strategies.renderNewForm);
 
-//Strategy new route to update the strategies home page
-router.post('/', validateStrategy, catchAsync(async (req,res) => {
-  const strategy = new Strategy(req.body.strategy);
-  for (let i = 0; i < strategy.number; i++){
-    const player = new Player({
-      name: "",
-      role: "",
-      molotov: 0,
-      smoke: 0,
-      flashes: 0,
-      position: ""
-    });
-    console.log(player);
-  }
-  await strategy.save();
-  req.flash('success', 'Successfully added a new strategy');
-  res.redirect(`/strategies/${strategy._id}`)
-}));
-
-//Strategy show route
-router.get('/:id', catchAsync(async (req, res) =>{
-  const strategy = await Strategy.findById(req.params.id);
-  if (!strategy) {
-    req.flash('error', 'Cannot find that strategy');
-    return res.redirect('/strategies');
-  }
-  res.render('strategies/show', { strategy });
-}));
+//Strategy /:id route
+router.route('/:id')
+  .get(catchAsync(strategies.showStrategy))
+  .put(validateStrategy, catchAsync(strategies.updateStrategy))
+  .delete(catchAsync(strategies.deleteStrategy));
 
 //Edit Strategy route
-router.get('/:id/edit', catchAsync(async (req, res) =>{
-  const strategy = await Strategy.findById(req.params.id);
-  if (!strategy) {
-    req.flash('error', 'Cannot find that strategy');
-    return res.redirect('/strategies');
-  }
-  res.render('strategies/edit', { strategy });
-}))
+router.get('/:id/edit', catchAsync(strategies.renderEditForm))
 
 //Strategy edit route for updating
-router.put('/:id', validateStrategy, catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const strategy = await Strategy.findByIdAndUpdate(id, {...req.body.strategy});
-  req.flash('success', 'Successfully editted a strategy');
-  res.redirect(`/strategies/${strategy._id}`);
-}))
+router.put('/:id', validateStrategy, catchAsync())
 
 //Strategy delete route
-router.delete('/:id', catchAsync(async (req, res) =>{
-  const { id } = req.params;
-  await Strategy.findByIdAndDelete(id);
-  req.flash('success', 'Successfully deleted a strategy');
-  res.redirect('/strategies');
-}));
+router.delete('/:id', catchAsync());
 
 module.exports = router;
