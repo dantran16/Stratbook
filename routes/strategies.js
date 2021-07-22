@@ -4,9 +4,6 @@ const router = express.Router();
 const strategies = require('../controllers/strategies');
 const { strategySchema } = require('../schemas.js');
 const catchAsync = require('../utils/catchAsync');
-const ExpressError = require('../utils/ExpressError');
-const Strategy = require('../models/strategy');
-const Player = require('../models/player');
 const { validateStrategy } = require('../middleware');
 
 

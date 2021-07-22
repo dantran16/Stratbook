@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const playerSchema = new Schema({
+const PlayerSchema = new Schema({
   name: {
     type: String, 
   },
@@ -46,5 +46,5 @@ const playerSchema = new Schema({
   },
 })
 
-module.exports = mongoose.model('Player', playerSchema);
+module.exports = mongoose.model('Player', PlayerSchema);
 
