@@ -4,18 +4,28 @@
   <div class="col-6 offset-3">
     <form action="/strategies/<%=strategy._id%>?_method=PUT" method="POST" novalidate class="validated-form">
       <div class="mb-3">
-        <label class="form-label" for="name">Name</label>
+        <label class="form-label" for="name">Edit Strategy Name</label>
         <input class="form-control" type="text" id="name" name="strategy[name]" value="<%=strategy.name%>" required>
         <div class="valid-feedback"> Looks good!</div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="map">Map</label>
-        <input class="form-control" type="text" id="map" name="strategy[map]" value="<%=strategy.map%>" required>
+        <select class="form-select" name="strategy[map]" id="map">
+          <option value=""> </option>
+          <% for(let map of maps){ %> 
+            <option value="<%= map %>" <%= map === strategy.map ? 'selected' : ''%> ><%=map %> </option>
+          <% } %> 
+        </select>
         <div class="valid-feedback"> Looks good!</div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="description">Description</label>
         <textarea class="form-control" type="text" id="description" name="strategy[description]" required><%=strategy.description%></textarea>
+        <div class="valid-feedback"> Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="number">How many players?</label>
+        <input class="form-control" type="number" id="number" name="strategy[number]" required min="1" max="5" value="<%=strategy.number %>">
         <div class="valid-feedback"> Looks good!</div>
       </div>
       <div class="mb-3">

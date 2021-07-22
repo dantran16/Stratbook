@@ -40,7 +40,7 @@ module.exports.showStrategy = async (req, res) => {
     req.flash('error', 'Cannot find that strategy');
     return res.redirect('/strategies');
   }
-  console.log(strategy.players);
+  console.log(strategy);
   res.render('strategies/show', { strategy });
 };
 
@@ -51,7 +51,7 @@ module.exports.renderEditForm = async (req, res) => {
     req.flash('error', 'Cannot find that strategy');
     return res.redirect('/strategies');
   }
-  res.render('strategies/edit', { strategy });
+  res.render('strategies/edit', { strategy, maps });
 };
 
 //Updates strategy based on what we put in edit strategy
