@@ -1,0 +1,34 @@
+<% layout('/layouts/boilerplate')%>
+<link rel="stylesheet" href="/css/collapse.css">
+<div class="row">
+  <h1 class="text-center">Edit Player</h1>
+  <div class="col-6 offset-3">
+    <form action="/strategies/<%= player.strategyId %>/<%=player._id%>/?_method=PUT" method="POST" novalidate class="validated-form">
+      <div class="mb-3">
+        <label class="form-label" for="name">Edit Player Name</label>
+        <input class="form-control" type="text" id="name" name="player[name]" value="<%=player.name%>">
+        <div class="valid-feedback"> Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="role">Role</label>
+        <select class="form-select" name="player[role]" id="role">
+          <option value=""> </option>
+          <% for(let role of roles){ %> 
+            <option value="<%= role %>" <%= role === player.role ? 'selected' : ''%> ><%=role %> </option>
+          <% } %> 
+        </select>
+        <div class="valid-feedback"> Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea class="form-control" type="text" id="description" name="player[description]" required><%=player.description%></textarea>
+        <div class="valid-feedback"> Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-info">Update strategy</button>
+      </div>
+    </form>
+    <a href="/strategies/<%=player.strategyId%>">Back to strategy</a>
+    
+  </div>
+</div>

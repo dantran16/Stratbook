@@ -8,14 +8,11 @@ const flash = require('connect-flash');
 const session = require('express-session');
 
 //importing local packages
-const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError.js');
-const { strategySchema } = require('./schemas.js');
-const Strategy = require('./models/strategy');
-const Player = require('./models/player');
 
 //Routes
 const strategies = require('./routes/strategies');
+const players = require('./routes/players');
 
 //Mongoose setup
 mongoose.connect('mongodb://localhost:27017/stratbook', {
@@ -65,7 +62,7 @@ app.use((req, res, next) => {
 
 //Routes
 app.use('/strategies', strategies);
-//app.use('/strategies/:id/players', players);
+app.use('/strategies', players);
 
 //Home page
 app.get('/', (req, res) =>{

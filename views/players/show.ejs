@@ -1,0 +1,19 @@
+<% layout('/layouts/boilerplate')%>
+<link rel="stylesheet" href="/css/collapse.css">
+<div class="row">
+  <div class="col-12">
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title"><%= player.name %></h5>
+        <p class="card-text"><%= player.role %></p>
+        <p class="card-text"><%= player.description %></p>
+      </div>
+      <div class="card-body">
+        <a class="card-link btn btn-warning" href="/strategies/<%=player.strategyId%>/<%=player._id%>/edit">Edit</a> 
+        <form class="d-inline" action="/players/<%=player._id%>?_method=DELETE" method="POST">
+          <button class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
