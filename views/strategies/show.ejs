@@ -1,5 +1,5 @@
 <% layout('/layouts/boilerplate')%>
-
+<link rel="stylesheet" href="/css/collapse.css">
 <div class="row">
   <div class="col-6">
     <div class="card mb-3">
@@ -22,5 +22,19 @@
       </div>
     </div>
   </div>
+  <div class="col-6 text-center">
+    <% for(let player of strategy.players){ %> 
+      <div class="collapsible">
+        <div class="card mb-3">
+          <p class="card-title"> <% if(player.name) { %> <%= player.name %> / <% } %><%= player.role %></p>
+          <p class="card-text"><%= player.position %></p>
+          <p class="card-text"><%= player.description %></p>
+          <p class="card-text"><%= player._id%></p>
+        </div>
+      </div>
+    <% } %> 
+  </div>
 </div>
+
+<script src="/js/collapse.js"></script>
 

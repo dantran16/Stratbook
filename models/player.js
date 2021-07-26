@@ -44,6 +44,9 @@ const PlayerSchema = new Schema({
   position: {
     type: String,
   },
+  description: {
+    type: String
+  }
 })
 
 module.exports = mongoose.model('Player', PlayerSchema);
