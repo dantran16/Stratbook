@@ -66,7 +66,7 @@ app.use('/strategies', players);
 
 //Home page
 app.get('/', (req, res) =>{
-  res.render('home');
+  res.redirect('/strategies');
 })
 
 app.all('*', (req, res, next) => {

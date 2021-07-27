@@ -26,10 +26,19 @@
     <% for(let player of strategy.players){ %> 
       <div class="collapsible">
         <div class="card mb-3">
-          <p class="card-title"> <% if(player.name) { %> <%= player.name %> / <% } %><%= player.role %></p>
-          <p class="card-text"><%= player.position %></p>
-          <p class="card-text"><%= player.description %></p>
-          <p class="card-text"><%= player._id%></p>
+          <div class="card-body">
+            <p class="card-title"> <% if(player.name) { %> <%= player.name %> / <% } %><%= player.role %></p>
+            <p class="card-text"><%= player.position %></p>
+            <p class="card-text"><%= player.description %></p>
+            <p class="card-text"><%= player._id%></p>
+          </div>
+          <div class="card-body">
+            <a class="btn btn-info" href="/strategies/<%=strategy._id%>/<%=player._id%>">View</a> 
+            <a class="btn btn-warning" href="/strategies/<%=strategy._id%>/<%=player._id%>/edit">Edit</a> 
+            <form class="d-inline" action="/strategies/<%=strategy._id%>/<%=player._id%>?_method=DELETE" method="POST">
+              <button class="btn btn-danger">Delete</button>
+            </form>
+          </div>
         </div>
       </div>
     <% } %> 
