@@ -37,11 +37,9 @@ module.exports.updatePlayer = async (req, res) => {
 
 //Deletes strategy 
 module.exports.deletePlayer = async (req, res) => {
-  const { id, strategyId } = req.params;
+  const { strategyId, id } = req.params;
   await Strategy.findByIdAndUpdate(strategyId, {
-    $pull: { "players": { _id: req.params.strategyId } },
-    $inc: { "number": -1 }
-    }, { safe: true, upsert: true} 
+    $pull: { players: { $in: id } } },
   );
   await Player.findByIdAndDelete(id);
 

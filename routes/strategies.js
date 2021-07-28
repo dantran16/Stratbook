@@ -20,6 +20,9 @@ router.route('/:id')
   .put(validateStrategy, catchAsync(strategies.updateStrategy))
   .delete(catchAsync(strategies.deleteStrategy));
 
+//Strategy /:id/addPlayer route
+router.route('/:id/addPlayer').put(catchAsync(strategies.addPlayer));
+
 //Edit Strategy route
 router.get('/:id/edit', catchAsync(strategies.renderEditForm))
 

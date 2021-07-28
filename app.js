@@ -18,7 +18,8 @@ const players = require('./routes/players');
 mongoose.connect('mongodb://localhost:27017/stratbook', {
   useNewUrlParser: true,
   useCreateIndex: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 const db = mongoose.connection;

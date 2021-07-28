@@ -19,12 +19,6 @@ const StrategySchema = new Schema({
       'de_train']
   },
   description: String,
-  number: {
-    type: Number,
-    min: 1,
-    max: 5,
-    default: 2,
-  },
   players: [
     {
       type: Schema.Types.ObjectId,

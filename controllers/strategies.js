@@ -13,7 +13,12 @@ module.exports.index = async (req, res) => {
 //Creates strategy
 module.exports.createStrategy = async (req, res) => {
   const strategy = new Strategy(req.body.strategy);
-  for (let i = 0; i < strategy.number; i++) {
+  const number = req.body.number;
+  if ( !(number <= 5 && number >= 0) ) {
+    req.flash('error', 'There can only be 1 - 5 people in a strategy');
+    return res.redirect('/strategies');
+  }
+  for (let i = 0; i < number; i++) {
     const player = new Player({
       name: "",
       role: "fill",
@@ -52,6 +57,34 @@ module.exports.renderEditForm = async (req, res) => {
     return res.redirect('/strategies');
   }
   res.render('strategies/edit', { strategy, maps });
+};
+
+//Add a player
+module.exports.addPlayer = async (req, res) => {
+  const { id } = req.params;
+  const strategy = await Strategy.findById(id);
+  for (let player of strategy.players) {
+    console.log(player);
+  }
+  const number = strategy.players.length;
+  // Make sure someone can't add more than 5 players
+  if (!(number < 5 && number >= 0)) {
+    req.flash('error', 'Cannot add more than 5 players');
+    return res.redirect(`/strategies/${strategy._id}`);
+  }
+  const player = new Player({
+    name: "",
+    role: "fill",
+    utility: [],
+    position: ""
+  });
+  await Strategy.findByIdAndUpdate(id, {
+    $push: { "players": player }
+  });
+  await player.save();
+  await strategy.save();
+  req.flash('success', 'Successfully added player');
+  res.redirect(`/strategies/${strategy._id}`);
 };
 
 //Updates strategy based on what we put in edit strategy
