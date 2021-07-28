@@ -2,18 +2,32 @@
 <link rel="stylesheet" href="/css/collapse.css">
 <div class="row">
   <div class="col-12">
-    <div class="card mb-3">
+    <div class="card mb-3 text-center">
       <div class="card-body">
-        <h5 class="card-title"><%= player.name %></h5>
-        <p class="card-text"><%= player.role %></p>
+        <h2 class="card-title"><% if(player.name) { %> <%= player.name %> / <% } %><%= player.role %></h2>
+        <% if(player.name) { %> <h3 class="card-text"><%= player.position %></h3> <% } %> 
+
+        <% for(let nade of player.utility) { %> 
+          
+        <% } %> 
         <p class="card-text"><%= player.description %></p>
       </div>
       <div class="card-body">
-        <a class="card-link btn btn-warning" href="/strategies/<%=player.strategyId%>/<%=player._id%>/edit">Edit</a> 
-        <form class="d-inline" action="/players/<%=player._id%>?_method=DELETE" method="POST">
+        <% for(let nade of nades){%>
+          <form class="d-inline" action="/strategies/<%=player.strategyId%>/<%=player._id%>/add/<%=nade %>" method="POST">
+            <button class="btn btn-primary">Add <%= nade %> </button>
+          </form>
+        <% } %> 
+        
+      </div>
+      <div class="card-body">
+        <a class="btn btn-warning" href="/strategies/<%=player.strategyId%>/<%=player._id%>/edit">Edit</a> 
+        <form class="d-inline" action="/strategies/<%=player.strategyId%>/<%=player._id%>?_method=DELETE" method="POST">
           <button class="btn btn-danger">Delete</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+

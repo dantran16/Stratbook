@@ -13,4 +13,7 @@ router.route('/:strategyId/:id')
 //Route for rendering player edit form
 router.get('/:strategyId/:id/edit', catchAsync(players.renderEditForm))
 
+//Player route for adding nade
+router.post('/:strategyId/:id/add/:util', catchAsync(players.addNade));
+
 module.exports = router;

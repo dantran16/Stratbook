@@ -11,7 +11,7 @@ const PlayerSchema = new Schema({
   },
   utility: [{
     type: Schema.Types.ObjectId,
-    ref: 'Utility',
+    ref: 'Nade',
     validate: {
       validator: function (v) {
         // A player cannot hold more than 4 pieces of utility 
