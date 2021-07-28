@@ -7,7 +7,7 @@ const PlayerSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['entry', 'support', '2nd', 'IGL', 'AWP', 'lurk', 'fill']
+    enum: ['Entry', 'Support', '2nd', 'IGL', 'AWP', 'Lurk', 'Fill']
   },
   utility: [{
     type: Schema.Types.ObjectId,
@@ -15,9 +15,7 @@ const PlayerSchema = new Schema({
     validate: {
       validator: function (v) {
         // A player cannot hold more than 4 pieces of utility 
-        if (this.utility.length > 4) {
-          return false;
-        }
+        if (this.utility.length > 4) return false;
         //Function to see if the specific grenade type has surpassed maximum capacity (returns false)
         countCheck = (utility, max) => {
           const reducer = (accumulator, currentValue) => {
@@ -38,7 +36,8 @@ const PlayerSchema = new Schema({
         if (!countCheck('flash', 2)) return false;
         //A player cannot hold more than 1 smoke
         if (!countCheck('smoke', 1)) return false;
-      }
+      },
+      message: `Don't put too many nades`
     }
   }],
   position: {

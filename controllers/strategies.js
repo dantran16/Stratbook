@@ -40,7 +40,13 @@ module.exports.renderNewForm = (req, res) => {
 
 //renders specific strategy page (depending on what strategy you pick)
 module.exports.showStrategy = async (req, res) => {
-  const strategy = await Strategy.findById(req.params.id).populate('players');
+  const strategy = await Strategy.findById(req.params.id).populate({
+    path: 'players',
+    populate: {
+      path: 'utility',
+      model: 'Nade'
+    }
+  });
   if (!strategy) {
     req.flash('error', 'Cannot find that strategy');
     return res.redirect('/strategies');

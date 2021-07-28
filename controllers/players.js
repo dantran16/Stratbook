@@ -2,7 +2,7 @@ const Strategy = require('../models/strategy');
 const Player = require('../models/player');
 const Nade = require('../models/nade')
 
-const roles = ['entry', 'support', '2nd', 'IGL', 'AWP', 'lurk', 'fill'];
+const roles = ['Entry', 'Support', '2nd', 'IGL', 'AWP', 'Lurk', 'Fill'];
 const nades = ['molotov', 'grenade', 'smoke', 'flash', 'decoy'];
 
 //renders specific player page (depending on what player you pick)

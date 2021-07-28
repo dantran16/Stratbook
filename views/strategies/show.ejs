@@ -31,6 +31,11 @@
           <div class="card-body">
             <h2 class="card-title"> <% if(player.name) { %> <%= player.name %> / <% } %><%= player.role %></h2>
             <h3 class="card-text"><%= player.position %></h3>
+            <div class="card-body">
+              <% for(let nade of player.utility) { %> 
+                <img src="/img/<%=nade.name%>.png" alt="<%=nade.name %> " srcset="">
+              <% } %> 
+            </div>
             <p class="card-text"><%= player.description %></p>
           </div>
           <div class="card-body">
