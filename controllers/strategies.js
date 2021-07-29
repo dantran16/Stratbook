@@ -51,7 +51,6 @@ module.exports.showStrategy = async (req, res) => {
     req.flash('error', 'Cannot find that strategy');
     return res.redirect('/strategies');
   }
-  console.log(strategy);
   res.render('strategies/show', { strategy });
 };
 
@@ -69,9 +68,6 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.addPlayer = async (req, res) => {
   const { id } = req.params;
   const strategy = await Strategy.findById(id);
-  for (let player of strategy.players) {
-    console.log(player);
-  }
   const number = strategy.players.length;
   // Make sure someone can't add more than 5 players
   if (!(number < 5 && number >= 0)) {
@@ -80,7 +76,7 @@ module.exports.addPlayer = async (req, res) => {
   }
   const player = new Player({
     name: "",
-    role: "fill",
+    role: "Fill",
     utility: [],
     position: ""
   });

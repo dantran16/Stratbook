@@ -9,8 +9,13 @@
         <p class="card-text"><%= strategy.description %></p>
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item text-muted"><%= strategy.map %></li>
-        <li class="list-group-item"><%= strategy.players.length %> People</li>
+        <li class="list-group-item">
+          <img class="d-inline" src="/img/map.svg" alt="People icon">
+          <%= strategy.map %></li>
+        <li class="list-group-item">
+          <img class="d-inline" src="/img/people.svg" alt="People icon">
+          <%= strategy.players.length %> People
+        </li>
       </ul>
       <div class="card-body">
         <form class="d-inline" action="/strategies/<%=strategy._id%>/addPlayer?_method=PUT" method="POST" novalidate class="validated-form">
