@@ -1,22 +1,22 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router({ mergeParams: true } );
 
 const players = require('../controllers/players');
 const catchAsync = require('../utils/catchAsync');
 
-//Player /:strategyId/:id route
-router.route('/:strategyId/player/:id')
+//Player :id route
+router.route('/')
   .get(catchAsync(players.showPlayer))
   .put(catchAsync(players.updatePlayer))
   .delete(catchAsync(players.deletePlayer))
 
 //Route for rendering player edit form
-router.get('/:strategyId/player/:id/edit', catchAsync(players.renderEditForm))
+router.get('/edit', catchAsync(players.renderEditForm))
 
 //Player route for adding nade
-router.post('/:strategyId/player/:id/add/:util', catchAsync(players.addNade));
+router.post('/add/:util', catchAsync(players.addNade));
 
 //Player route for deleting a nade
-router.delete('/:strategyId/player/:id/nade/:nadeId', catchAsync(players.deleteNade));
+router.delete('/nade/:nadeId', catchAsync(players.deleteNade));
 
 module.exports = router;

@@ -63,7 +63,7 @@ app.use((req, res, next) => {
 
 //Routes
 app.use('/strategies', strategies);
-app.use('/strategies', players);
+app.use('/strategies/:strategyId/player/:id', players);
 
 //Home page
 app.get('/', (req, res) =>{
