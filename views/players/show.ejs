@@ -7,16 +7,25 @@
         <h2 class="card-title"><% if(player.name) { %> <%= player.name %> / <% } %><%= player.role %></h2>
         <% if(player.name) { %> <h3 class="card-text"><%= player.position %></h3> <% } %> 
         <div class="card-body">
-          <% for(let nade of player.utility) { %> 
+          <% for(let [index, nade] of player.utility.entries()) { %> 
             <img src="/img/<%=nade.name %>.png" alt="<%=nade.name %> " srcset="">
+            <p class="d-inline nade-description" id="description<%=index%>"><%=nade.description %></p>
+            <form class="edit-nade-description" id="edit-description-form<%=index%>">
+              <input class="form-control" type="text" id="edit-description<%=index%>" name="nade<%=index%>[description]" value="<%=nade.description%>">
+            </form>
+            <button class="btn btn-warning edit-nade-button" id="editNade<%=index %>">
+              <img class="editImage"src="/img/edit.svg">
+            </button>
             <form class="d-inline" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/nade/<%=nade._id%>?_method=DELETE" method="POST">
               <button class="btn btn-danger">X</button>
             </form>
             <br>
           <% } %> 
         </div>
+        <div class="card-body">
+          <p class="card-text"><%= player.description %></p>
+        </div>
         
-        <p class="card-text"><%= player.description %></p>
       </div>
       <div class="card-body">
         <% for(let nade of nades){%>
@@ -36,4 +45,4 @@
   </div>
 </div>
 
-
+<script src="/js/utility.js"></script>

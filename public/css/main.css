@@ -1,0 +1,12 @@
+.editImage{
+  width: 18px;
+  height: auto;
+}
+
+.nade-description {
+  display: inline
+}
+
+.edit-nade-description {
+  display: none;
+}
