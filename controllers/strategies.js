@@ -21,7 +21,7 @@ module.exports.createStrategy = async (req, res) => {
   for (let i = 0; i < number; i++) {
     const player = new Player({
       name: "",
-      role: "fill",
+      role: "Fill",
       utility: [],
       position: ""
     });

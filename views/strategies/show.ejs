@@ -44,9 +44,9 @@
             <p class="card-text"><%= player.description %></p>
           </div>
           <div class="card-body">
-            <a class="btn btn-info" href="/strategies/<%=strategy._id%>/<%=player._id%>">View</a> 
-            <a class="btn btn-warning" href="/strategies/<%=strategy._id%>/<%=player._id%>/edit">Edit</a> 
-            <form class="d-inline" action="/strategies/<%=strategy._id%>/<%=player._id%>?_method=DELETE" method="POST">
+            <a class="btn btn-info" href="/strategies/<%=strategy._id%>/player/<%=player._id%>">View</a> 
+            <a class="btn btn-warning" href="/strategies/<%=strategy._id%>/player/<%=player._id%>/edit">Edit</a> 
+            <form class="d-inline" action="/strategies/<%=strategy._id%>/player/<%=player._id%>?_method=DELETE" method="POST">
               <button class="btn btn-danger">Delete</button>
             </form>
           </div>

@@ -9,6 +9,10 @@
         <div class="card-body">
           <% for(let nade of player.utility) { %> 
             <img src="/img/<%=nade.name %>.png" alt="<%=nade.name %> " srcset="">
+            <form class="d-inline" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/nade/<%=nade._id%>?_method=DELETE" method="POST">
+              <button class="btn btn-danger">X</button>
+            </form>
+            <br>
           <% } %> 
         </div>
         
@@ -16,15 +20,15 @@
       </div>
       <div class="card-body">
         <% for(let nade of nades){%>
-          <form class="d-inline" action="/strategies/<%=player.strategyId%>/<%=player._id%>/add/<%=nade %>" method="POST">
+          <form class="d-inline" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/add/<%=nade %>" method="POST">
             <button class="btn btn-primary">Add <%= nade %> </button>
           </form>
         <% } %> 
         
       </div>
       <div class="card-body">
-        <a class="btn btn-warning" href="/strategies/<%=player.strategyId%>/<%=player._id%>/edit">Edit</a> 
-        <form class="d-inline" action="/strategies/<%=player.strategyId%>/<%=player._id%>?_method=DELETE" method="POST">
+        <a class="btn btn-warning" href="/strategies/<%=player.strategyId%>/player/<%=player._id%>/edit">Edit</a> 
+        <form class="d-inline" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>?_method=DELETE" method="POST">
           <button class="btn btn-danger">Delete</button>
         </form>
       </div>

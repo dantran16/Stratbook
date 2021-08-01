@@ -83,7 +83,7 @@ module.exports.addNade = async (req, res) => {
   }
 
   if (isTooMany) {
-    req.flash('error', `You can't add more than ${max} for ${util}`)
+    req.flash('error', `You can't add more than ${max} ${util}`)
     return res.redirect(`/strategies/${strategyId}`)
   }
   else {
@@ -91,7 +91,20 @@ module.exports.addNade = async (req, res) => {
     await Player.findByIdAndUpdate(id, {
       $push: { utility: nade }
     })
+    req.flash('success', `You successfully added a ${util} grenade`)
     return res.redirect(`/strategies/${strategyId}`)
   }
   
 }
+
+//Deleting a nade
+module.exports.deleteNade = async (req, res) => {
+  const { id, nadeId, strategyId } = req.params;
+  await Player.findByIdAndUpdate(id, {
+    $pull: { utility: { $in: nadeId } } },
+  );
+  await Nade.findByIdAndDelete(nadeId);
+  req.flash('success', 'Successfully deleted a nade');
+  res.redirect(`/strategies/${strategyId}/player/${id}`);
+};
+
