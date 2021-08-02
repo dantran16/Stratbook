@@ -3,10 +3,48 @@
   height: auto;
 }
 
-.nade-description {
-  display: inline
+.nade-container{
+  padding: 5px 0;
+  width: 50vw;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 5px;
+}
+.nade-container div{
+  display: flex;
+  align-items: center;
+}
+.description-submit-button{
+  visibility: hidden;
+  float: right;
 }
 
-.edit-nade-description {
-  display: none;
+
+.nade-description {
+  text-align: left;
+  display: inline-block;
+  position: relative;
+  margin: 10px 0;
+  padding: 10px 10px;
+  width: 30vw;
+  height: 5vh;
 }
+
+.edit-description-form{
+  display: none;
+  text-align: left;
+  /* display: inline-block; */
+  position: relative;
+  margin: 10px 0;
+  padding: 0 10px;
+  width: 30vw;
+  height: 5vh;
+  padding: 0;
+}
+.edit-description-form textarea{
+  padding: 15px 10px 10px 9px;
+  line-height: .7;
+}
+

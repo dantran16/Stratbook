@@ -8,17 +8,28 @@
         <% if(player.name) { %> <h3 class="card-text"><%= player.position %></h3> <% } %> 
         <div class="card-body">
           <% for(let [index, nade] of player.utility.entries()) { %> 
-            <img src="/img/<%=nade.name %>.png" alt="<%=nade.name %> " srcset="">
-            <p class="d-inline nade-description" id="description<%=index%>"><%=nade.description %></p>
-            <form class="edit-nade-description" id="edit-description-form<%=index%>">
-              <input class="form-control" type="text" id="edit-description<%=index%>" name="nade<%=index%>[description]" value="<%=nade.description%>">
-            </form>
-            <button class="btn btn-warning edit-nade-button" id="editNade<%=index %>">
-              <img class="editImage"src="/img/edit.svg">
-            </button>
-            <form class="d-inline" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/nade/<%=nade._id%>?_method=DELETE" method="POST">
-              <button class="btn btn-danger">X</button>
-            </form>
+            <div class="container nade-container">
+              <div>
+                <img src="/img/<%=nade.name %>.png" alt="<%=nade.name %> " srcset="">
+                <div class="nade-description" id="description<%=index%>">
+                  <span>hello<%=nade.description %></span>
+                </div>
+                <form class="edit-description-form" id="edit-description-form<%=index%>">
+                  <textarea class="form-control" type="text" id="edit-description<%=index%>" name="nade<%=index%>[description]">hello<%=nade.description%></textarea>
+                  <button class="btn btn-success description-submit-button" id="description-submit-button<%=index%>">&#10003;</button>
+                </form>
+                
+              </div>
+              <div>
+                <button class="btn btn-warning edit-nade-button" id="editNade<%=index %>">
+                  <img class="editImage"src="/img/edit.svg">
+                </button>
+                <form class="d-inline" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/nade/<%=nade._id%>?_method=DELETE" method="POST">
+                  <button class="btn btn-danger">X</button>
+                </form>
+              </div>
+            </div>
+            
             <br>
           <% } %> 
         </div>
