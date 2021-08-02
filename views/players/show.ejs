@@ -12,10 +12,11 @@
               <div>
                 <img src="/img/<%=nade.name %>.png" alt="<%=nade.name %> " srcset="">
                 <div class="nade-description" id="description<%=index%>">
-                  <span>hello<%=nade.description %></span>
+                  <span><%=nade.description %></span>
                 </div>
-                <form class="edit-description-form" id="edit-description-form<%=index%>">
-                  <textarea class="form-control" type="text" id="edit-description<%=index%>" name="nade<%=index%>[description]">hello<%=nade.description%></textarea>
+                <form action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/nade/<%=nade._id%>?_method=PUT" 
+                    method="POST" novalidate class="validated-form edit-description-form" id="edit-description-form<%=index%>">
+                  <textarea class="form-control" type="text" id="edit-description<%=index%>" name="nade<%=index%>[description]"><%=nade.description%></textarea>
                   <button class="btn btn-success description-submit-button" id="description-submit-button<%=index%>">&#10003;</button>
                 </form>
                 

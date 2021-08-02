@@ -54,7 +54,7 @@ module.exports.addNade = async (req, res) => {
   const player = await Player.findById(id).populate('utility');
   const nade = new Nade({
     name: util,
-    description: ""
+    description: `Throw ${util} at ...`
   });
   // A player can't have more than 4 nades
   if (player.utility.length >= 4) {
@@ -84,7 +84,6 @@ module.exports.addNade = async (req, res) => {
 
   if (isTooMany) {
     req.flash('error', `You can't add more than ${max} ${util}`)
-    return res.redirect(`/strategies/${strategyId}`)
   }
   else {
     await nade.save();
@@ -92,9 +91,8 @@ module.exports.addNade = async (req, res) => {
       $push: { utility: nade }
     })
     req.flash('success', `You successfully added a ${util} grenade`)
-    return res.redirect(`/strategies/${strategyId}`)
   }
-  
+  return res.redirect(`/strategies/${strategyId}/player/${id}`)
 }
 
 //Deleting a nade
@@ -107,4 +105,16 @@ module.exports.deleteNade = async (req, res) => {
   req.flash('success', 'Successfully deleted a nade');
   res.redirect(`/strategies/${strategyId}/player/${id}`);
 };
+
+//Updating nade description
+module.exports.updateNadeDescription = async (req, res) => {
+  const { id, nadeId, strategyId } = req.params;
+  const { description } = Object.entries(req.body)[0][1];
+  console.log(description);
+  const nade = await Nade.findByIdAndUpdate(nadeId, {
+    $set: { description: description }
+  })
+  req.flash('success', 'Successfully updated nade description');
+  res.redirect(`/strategies/${strategyId}/player/${id}`);
+}
 

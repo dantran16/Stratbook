@@ -39,6 +39,8 @@
             <div class="card-body">
               <% for(let nade of player.utility) { %> 
                 <img src="/img/<%=nade.name%>.png" alt="<%=nade.name %> " srcset="">
+                <span class="player-nade-description"><%=nade.description %></span>
+                <br>
               <% } %> 
             </div>
             <p class="card-text"><%= player.description %></p>

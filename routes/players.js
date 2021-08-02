@@ -16,7 +16,9 @@ router.get('/edit', catchAsync(players.renderEditForm))
 //Player route for adding nade
 router.post('/add/:util', catchAsync(players.addNade));
 
-//Player route for deleting a nade
-router.delete('/nade/:nadeId', catchAsync(players.deleteNade));
+//Player route nade/:nadeId
+router.route('/nade/:nadeId')
+  .delete(catchAsync(players.deleteNade))
+  .put(catchAsync(players.updateNadeDescription));
 
 module.exports = router;

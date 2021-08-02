@@ -11,9 +11,10 @@
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title">
+          <h1 class="card-title">
             <%= strategy.name%>
-          </h5>
+          </h1>
+          <p class="d-inline card-text"><img width="35px" class="d-inline" src="/img/people.svg" alt="People icon"> <%= strategy.players.length %> People </p>
           <p class="card-text"><%=strategy.description%></p>
           <a class="btn btn-primary" href="/strategies/<%=strategy.id%>">View <%=strategy.name%></a>
         </div>
