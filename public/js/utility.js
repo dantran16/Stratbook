@@ -7,7 +7,6 @@ editNadeButtons.forEach((button) => {
     const description = document.querySelector(`#description${index}`);
     const editDescriptionForm = document.querySelector(`#edit-description-form${index}`);
     const descriptionSubmitButton = document.querySelector(`#description-submit-button${index}`);
-    console.log(button.id)
     if (description.style.display === "none") {
       description.style.display = "inline-block";
       editDescriptionForm.style.display = "none";

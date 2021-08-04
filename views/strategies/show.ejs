@@ -1,5 +1,5 @@
 <% layout('/layouts/boilerplate')%>
-<link rel="stylesheet" href="/css/collapse.css">
+<link rel="stylesheet" href="/css/playerForm.css">
 <div class="row">
   <div class="col-6">
     <div class="card mb-3">
@@ -16,17 +16,44 @@
           <img class="d-inline" src="/img/people.svg" alt="People icon">
           <%= strategy.players.length %> People
         </li>
+        <li class="list-group-item">
+          <button class="btn btn-info" id="toggle-add-player-form">Add player</button>
+          <a class="card-link btn btn-warning" href="/strategies/<%=strategy._id%>/edit">Edit</a> 
+          <form class="d-inline" action="/strategies/<%=strategy._id%>?_method=DELETE" method="POST">
+            <button class="btn btn-danger">Delete</button>
+          </form>
+        </li>
+        <li class="list-group-item hidden" id="player-form">
+          <form class="d-inline" action="/strategies/<%=strategy._id%>/addPlayer?_method=PUT" method="POST" novalidate class="validated-form">
+            <div class="mb-3">
+              <label class="form-label" for="name">Player Name</label>
+              <input class="form-control" type="text" id="name" name="player[name]" required>
+              <div class="valid-feedback"> Looks good!</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="role">Player Role</label>
+              <select class="form-select" name="player[role]" id="role">
+                <option value=""> </option>
+                <% for(let role of roles){ %> 
+                  <option value="<%= role %>"><%=role %></option>
+                <% } %> 
+              </select>
+              <div class="valid-feedback"> Looks good!</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="role">Player Position</label>
+              <input class="form-control" type="text" id="position" name="player[position]" required>
+              <div class="valid-feedback"> Looks good!</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="description">Player Description</label>
+              <textarea class="form-control" type="text" id="description" name="player[description]" required></textarea>
+              <div class="valid-feedback"> Looks good!</div>
+            </div>
+            <button class="d-block mx-auto btn btn-success">Submit</button>
+          </form>
+        </li>
       </ul>
-      <div class="card-body">
-        <form class="d-inline" action="/strategies/<%=strategy._id%>/addPlayer?_method=PUT" method="POST" novalidate class="validated-form">
-          <button class="btn btn-info">Add player</button>
-        </form>
-        <a class="card-link btn btn-warning" href="/strategies/<%=strategy._id%>/edit">Edit</a> 
-        <form class="d-inline" action="/strategies/<%=strategy._id%>?_method=DELETE" method="POST">
-          <button class="btn btn-danger">Delete</button>
-        </form>
-      </div>
-
     </div>
   </div>
   <div class="col-6 text-center">
@@ -58,5 +85,4 @@
   </div>
 </div>
 
-<script src="/js/collapse.js"></script>
-
+<script src="/js/playerForm.js"></script>

@@ -3,6 +3,7 @@ const Player = require('../models/player');
 
 //Map list
 const maps = ["de_inferno", "de_dust2", "de_mirage", "de_overpass", "de_ancient", "de_vertigo", "de_nuke"];
+const roles = ['Entry', 'Support', '2nd', 'IGL', 'AWP', 'Lurk', 'Fill'];
 
 //Renders index page (page filled with strategies)
 module.exports.index = async (req, res) => {
@@ -51,7 +52,7 @@ module.exports.showStrategy = async (req, res) => {
     req.flash('error', 'Cannot find that strategy');
     return res.redirect('/strategies');
   }
-  res.render('strategies/show', { strategy });
+  res.render('strategies/show', { strategy, roles });
 };
 
 //Renders edit strategy form
@@ -75,10 +76,11 @@ module.exports.addPlayer = async (req, res) => {
     return res.redirect(`/strategies/${strategy._id}`);
   }
   const player = new Player({
-    name: "",
-    role: "Fill",
+    name: req.body.player.name,
+    role: req.body.player.role,
+    description: req.body.player.description,
     utility: [],
-    position: ""
+    position: req.body.player.position
   });
   await Strategy.findByIdAndUpdate(id, {
     $push: { "players": player }

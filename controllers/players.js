@@ -110,7 +110,6 @@ module.exports.deleteNade = async (req, res) => {
 module.exports.updateNadeDescription = async (req, res) => {
   const { id, nadeId, strategyId } = req.params;
   const { description } = Object.entries(req.body)[0][1];
-  console.log(description);
   const nade = await Nade.findByIdAndUpdate(nadeId, {
     $set: { description: description }
   })
