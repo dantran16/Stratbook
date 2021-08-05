@@ -19,16 +19,31 @@ module.exports.createStrategy = async (req, res) => {
     req.flash('error', 'There can only be 1 - 5 people in a strategy');
     return res.redirect('/strategies');
   }
-  for (let i = 0; i < number; i++) {
+  for (let i = 0; i < number; i++){
+    const key = `player${i}`
     const player = new Player({
-      name: "",
-      role: "Fill",
+      name: req.body[key].name,
+      role: req.body[key].role,
       utility: [],
-      position: ""
+      position: req.body[key].position,
+      description: req.body[key].description
     });
     strategy.players.push(player);
     await player.save();
   }
+
+  // for (let object in req.body) {
+  //   console.log(object);
+  //   const player = new Player({
+  //     name: req.body[object].name,
+  //     role: req.body[object].role,
+  //     utility: [],
+  //     position: req.body[object].position,
+  //     description: req.body[object].description
+  //   });
+  //   strategy.players.push(player);
+  //   await player.save();
+  // }
   await strategy.save();
   req.flash('success', 'Successfully added a new strategy');
   res.redirect(`/strategies/${strategy._id}`)
@@ -36,7 +51,7 @@ module.exports.createStrategy = async (req, res) => {
 
 //Renders new strategy page
 module.exports.renderNewForm = (req, res) => {
-  res.render('strategies/new', { maps });
+  res.render('strategies/new', { maps, roles });
 };
 
 //renders specific strategy page (depending on what strategy you pick)
