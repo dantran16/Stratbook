@@ -31,19 +31,6 @@ module.exports.createStrategy = async (req, res) => {
     strategy.players.push(player);
     await player.save();
   }
-
-  // for (let object in req.body) {
-  //   console.log(object);
-  //   const player = new Player({
-  //     name: req.body[object].name,
-  //     role: req.body[object].role,
-  //     utility: [],
-  //     position: req.body[object].position,
-  //     description: req.body[object].description
-  //   });
-  //   strategy.players.push(player);
-  //   await player.save();
-  // }
   await strategy.save();
   req.flash('success', 'Successfully added a new strategy');
   res.redirect(`/strategies/${strategy._id}`)

@@ -19,13 +19,13 @@ module.exports.showPlayer = async (req, res) => {
 //Renders edit Player form
 module.exports.renderEditForm = async (req, res) => {
   const { id, strategyId } = req.params;
-  const player = await Player.findById(id);
+  const player = await Player.findById(id).populate('utility');
   if (!player) {
     req.flash('error', 'Cannot find that player');
     return res.redirect(`/strategies/${strategyId}`);
   }
   player['strategyId'] = strategyId;
-  res.render('players/edit', { player, roles });
+  res.render('players/edit', { player, roles, nades });
 };
 
 //Updates player based on what we put in edit player
@@ -92,7 +92,7 @@ module.exports.addNade = async (req, res) => {
     })
     req.flash('success', `You successfully added a ${util} grenade`)
   }
-  return res.redirect(`/strategies/${strategyId}/player/${id}`)
+  return res.redirect(`/strategies/${strategyId}/player/${id}/edit`)
 }
 
 //Deleting a nade
@@ -103,7 +103,7 @@ module.exports.deleteNade = async (req, res) => {
   );
   await Nade.findByIdAndDelete(nadeId);
   req.flash('success', 'Successfully deleted a nade');
-  res.redirect(`/strategies/${strategyId}/player/${id}`);
+  res.redirect(`/strategies/${strategyId}/player/${id}/edit`);
 };
 
 //Updating nade description
@@ -114,6 +114,6 @@ module.exports.updateNadeDescription = async (req, res) => {
     $set: { description: description }
   })
   req.flash('success', 'Successfully updated nade description');
-  res.redirect(`/strategies/${strategyId}/player/${id}`);
+  res.redirect(`/strategies/${strategyId}/player/${id}/edit`);
 }
 

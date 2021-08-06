@@ -9,7 +9,7 @@
   height: auto;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
   margin-bottom: 5px;
 }
 .nade-container div{

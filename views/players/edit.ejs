@@ -1,5 +1,42 @@
 <% layout('/layouts/boilerplate')%>
-<link rel="stylesheet" href="/css/collapse.css">
+<div class="row">
+  <h1 class="text-center">Utility</h1>
+  <div class="col-6 offset-3">
+    <div class="mb-3">
+      <% for(let [index, nade] of player.utility.entries()) { %> 
+        <div class="container nade-container">
+          <div>
+            <img src="/img/<%=nade.name %>.png" alt="<%=nade.name %> " srcset="">
+            <div class="nade-description" id="description<%=index%>">
+              <span><%=nade.description %></span>
+            </div>
+            <form action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/nade/<%=nade._id%>?_method=PUT" 
+                method="POST" novalidate class="validated-form edit-description-form" id="edit-description-form<%=index%>">
+              <textarea class="form-control" type="text" id="edit-description<%=index%>" name="nade<%=index%>[description]"><%=nade.description%></textarea>
+              <button class="btn btn-success description-submit-button" id="description-submit-button<%=index%>">&#10003;</button>
+            </form>
+            
+          </div>
+          <div>
+            <button class="btn btn-warning edit-nade-button" id="editNade<%=index %>">
+              <img class="editImage"src="/img/edit.svg">
+            </button>
+            <form class="d-inline" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/nade/<%=nade._id%>?_method=DELETE" method="POST">
+              <button class="btn btn-danger">X</button>
+            </form>
+          </div>
+        </div>
+        
+        <br>
+      <% } %> 
+    </div>
+    <div class="card-body">
+      <% for(let nade of nades){%>
+        <button form="add<%=nade%>" class="btn btn-primary d-inline">Add <%= nade %> </button>
+      <% } %> 
+    </div>
+  </div>
+</div>
 <div class="row">
   <h1 class="text-center">Edit Player</h1>
   <div class="col-6 offset-3">
@@ -29,12 +66,23 @@
         <textarea class="form-control" type="text" id="description" name="player[description]" required><%=player.description%></textarea>
         <div class="valid-feedback"> Looks good!</div>
       </div>
+
       <div class="mb-3">
         <button class="btn btn-info">Update strategy</button>
       </div>
     </form>
+    
     <a href="/strategies/<%=player.strategyId%>">Back to strategy</a>
     
   </div>
 </div>
+
+<% for(let nade of nades){%>
+  <form id="add<%=nade%>" class="d-inline" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/add/<%=nade %>" method="POST">
+  </form>
+<% } %> 
+<% for(let [index, nade] of player.utility.entries()) { %> 
+  <form class="d-none" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/nade/<%=nade._id%>?_method=DELETE" method="POST" id="deleteNade<%=index%>"></form>
+<% } %> 
+<script src="/js/utility.js"></script>
 

@@ -8,30 +8,12 @@
         <% if(player.name) { %> <h3 class="card-text"><%= player.position %></h3> <% } %> 
         <div class="card-body">
           <% for(let [index, nade] of player.utility.entries()) { %> 
-            <div class="container nade-container">
-              <div>
-                <img src="/img/<%=nade.name %>.png" alt="<%=nade.name %> " srcset="">
-                <div class="nade-description" id="description<%=index%>">
-                  <span><%=nade.description %></span>
-                </div>
-                <form action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/nade/<%=nade._id%>?_method=PUT" 
-                    method="POST" novalidate class="validated-form edit-description-form" id="edit-description-form<%=index%>">
-                  <textarea class="form-control" type="text" id="edit-description<%=index%>" name="nade<%=index%>[description]"><%=nade.description%></textarea>
-                  <button class="btn btn-success description-submit-button" id="description-submit-button<%=index%>">&#10003;</button>
-                </form>
-                
-              </div>
-              <div>
-                <button class="btn btn-warning edit-nade-button" id="editNade<%=index %>">
-                  <img class="editImage"src="/img/edit.svg">
-                </button>
-                <form class="d-inline" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/nade/<%=nade._id%>?_method=DELETE" method="POST">
-                  <button class="btn btn-danger">X</button>
-                </form>
+            <div>
+              <img src="/img/<%=nade.name %>.png" alt="<%=nade.name %> " srcset="">
+              <div class="nade-description" id="description<%=index%>">
+                <span><%=nade.description %></span>
               </div>
             </div>
-            
-            <br>
           <% } %> 
         </div>
         <div class="card-body">
@@ -39,14 +21,7 @@
         </div>
         
       </div>
-      <div class="card-body">
-        <% for(let nade of nades){%>
-          <form class="d-inline" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/add/<%=nade %>" method="POST">
-            <button class="btn btn-primary">Add <%= nade %> </button>
-          </form>
-        <% } %> 
-        
-      </div>
+
       <div class="card-body">
         <a class="btn btn-warning" href="/strategies/<%=player.strategyId%>/player/<%=player._id%>/edit">Edit</a> 
         <form class="d-inline" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>?_method=DELETE" method="POST">
@@ -58,3 +33,4 @@
 </div>
 
 <script src="/js/utility.js"></script>
+
