@@ -14,7 +14,7 @@ router.route('/')
 router.get('/edit', catchAsync(players.renderEditForm))
 
 //Player route for adding nade
-router.post('/add/:util', catchAsync(players.addNade));
+router.post('/addNade', catchAsync(players.addNade));
 
 //Player route nade/:nadeId
 router.route('/nade/:nadeId')

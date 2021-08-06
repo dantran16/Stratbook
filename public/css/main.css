@@ -53,3 +53,16 @@
   line-height: .7;
 }
 
+.add-nades-container{
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+}
+
+.hidden{
+  display: none
+}
+
+.nade-form{
+  flex-direction: column;
+}

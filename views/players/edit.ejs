@@ -26,18 +26,31 @@
             </form>
           </div>
         </div>
-        
         <br>
       <% } %> 
     </div>
-    <div class="card-body">
-      <% for(let nade of nades){%>
-        <button form="add<%=nade%>" class="btn btn-primary d-inline">Add <%= nade %> </button>
-      <% } %> 
-    </div>
+    <button class="btn btn-info" id="toggle-nade-form-button">Add nade</button>
+    <form id="nade-form" class="validated-form hidden nade-form" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/addNade" method="POST">
+      <div class="mb-3">
+        <label class="form-label" for="nadeName">Nade Type</label>
+        <select class="form-select" name="nade[name]" id="nadeName">
+          <option value=""> </option>
+          <% for(let nade of nades){ %> 
+            <option value="<%= nade %>"><%=nade %> </option>
+          <% } %> 
+        </select>
+        <div class="valid-feedback"> Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="nadeDescription">Nade Description</label>
+        <input class="form-control" type="text" id="nadeDescription" name="nade[description]">
+        <div class="valid-feedback"> Looks good!</div>
+      </div>
+      <button class="btn btn-success">Add Nade</button>
+    </form>
   </div>
 </div>
-<div class="row">
+<div class="row mt-3">
   <h1 class="text-center">Edit Player</h1>
   <div class="col-6 offset-3">
     <form action="/strategies/<%= player.strategyId %>/player/<%=player._id%>/?_method=PUT" method="POST" novalidate class="validated-form">
@@ -85,4 +98,4 @@
   <form class="d-none" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/nade/<%=nade._id%>?_method=DELETE" method="POST" id="deleteNade<%=index%>"></form>
 <% } %> 
 <script src="/js/utility.js"></script>
-
+<script src="/js/toggleNadeForm.js"></script>

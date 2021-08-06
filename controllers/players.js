@@ -50,16 +50,17 @@ module.exports.deletePlayer = async (req, res) => {
 
 //Add nade to player's utility
 module.exports.addNade = async (req, res) => {
-  const { id, util, strategyId } = req.params;
+  const { id, strategyId } = req.params;
+  const util = req.body.nade.name;
   const player = await Player.findById(id).populate('utility');
   const nade = new Nade({
-    name: util,
-    description: `Throw ${util} at ...`
+    name: req.body.nade.name,
+    description: req.body.nade.description
   });
   // A player can't have more than 4 nades
   if (player.utility.length >= 4) {
     req.flash('error', `You can't add more than four nades`);
-    return res.redirect(`/strategies/${strategyId}`);
+    return res.redirect(`/strategies/${strategyId}/edit`);
   }
   //Function to see if the specific grenade type has surpassed maximum capacity 
   isTooManyCheck = (nadeType, max) => {
