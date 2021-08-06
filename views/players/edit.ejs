@@ -1,67 +1,79 @@
 <% layout('/layouts/boilerplate')%>
-<div class="row">
-  <h1 class="text-center">Utility</h1>
-  <div class="col-6 offset-3">
-    <div class="mb-3">
-      <% for(let [index, nade] of player.utility.entries()) { %> 
-        <div class="container nade-container">
-          <div>
-            <img src="/img/<%=nade.name %>.png" alt="<%=nade.name %> " srcset="">
-            <div class="nade-description" id="description<%=index%>">
-              <span><%=nade.description %></span>
-            </div>
-            <form action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/nade/<%=nade._id%>?_method=PUT" 
-                method="POST" novalidate class="validated-form edit-description-form" id="edit-description-form<%=index%>">
-              <textarea class="form-control" type="text" id="edit-description<%=index%>" name="nade<%=index%>[description]"><%=nade.description%></textarea>
-              <button class="btn btn-success description-submit-button" id="description-submit-button<%=index%>">&#10003;</button>
-            </form>
-            
-          </div>
-          <div>
-            <button class="btn btn-warning edit-nade-button" id="editNade<%=index %>">
-              <img class="editImage"src="/img/edit.svg">
-            </button>
-            <form class="d-inline" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/nade/<%=nade._id%>?_method=DELETE" method="POST">
-              <button class="btn btn-danger">X</button>
-            </form>
-          </div>
-        </div>
-        <br>
-      <% } %> 
-    </div>
-    <button class="btn btn-info" id="toggle-nade-form-button">Add nade</button>
-    <form id="nade-form" class="validated-form hidden nade-form" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/addNade" method="POST">
-      <div class="mb-3">
-        <label class="form-label" for="nadeName">Nade Type</label>
-        <select class="form-select" name="nade[name]" id="nadeName">
-          <option value=""> </option>
-          <% for(let nade of nades){ %> 
-            <option value="<%= nade %>"><%=nade %> </option>
-          <% } %> 
-        </select>
-        <div class="valid-feedback"> Looks good!</div>
-      </div>
-      <div class="mb-3">
-        <label class="form-label" for="nadeDescription">Nade Description</label>
-        <input class="form-control" type="text" id="nadeDescription" name="nade[description]">
-        <div class="valid-feedback"> Looks good!</div>
-      </div>
-      <button class="btn btn-success">Add Nade</button>
-    </form>
-  </div>
-</div>
+<link rel="stylesheet" href="/css/playerEdit.css">
+
+<form id="main-form" action="/strategies/<%= player.strategyId %>/player/<%=player._id%>/?_method=PUT" method="POST" novalidate class="validated-form">
+</form>
+<form id="nade-form" class="validated-form hidden nade-form" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/addNade" method="POST">
+</form>
+<% for(let nade of nades){%>
+  <form id="add<%=nade%>" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/add/<%=nade %>" method="POST">
+  </form>
+<% } %> 
+<% for(let [index, nade] of player.utility.entries()) { %> 
+  <form action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/nade/<%=nade._id%>?_method=PUT" 
+    method="POST" novalidate id="edit-nade-description-form<%=index%>">
+  </form>
+  <form class="d-none" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/nade/<%=nade._id%>?_method=DELETE" method="POST" id="deleteNade<%=index%>"></form>
+<% } %> 
+
+
 <div class="row mt-3">
   <h1 class="text-center">Edit Player</h1>
   <div class="col-6 offset-3">
-    <form action="/strategies/<%= player.strategyId %>/player/<%=player._id%>/?_method=PUT" method="POST" novalidate class="validated-form">
+    <div class="validated-form">
       <div class="mb-3">
         <label class="form-label" for="name">Edit Player Name</label>
-        <input class="form-control" type="text" id="name" name="player[name]" value="<%=player.name%>">
+        <input form="main-form" class="form-control" type="text" id="name" name="player[name]" value="<%=player.name%>">
         <div class="valid-feedback"> Looks good!</div>
       </div>
       <div class="mb-3">
+        <label class="form-label">Utility</label>
+          <% for(let [index, nade] of player.utility.entries()) { %> 
+            <div class="container nade-container">
+              <div>
+                <img src="/img/<%=nade.name %>.png" alt="<%=nade.name %>">
+                <div class="nade-description" id="description<%=index%>">
+                  <span><%=nade.description %></span>
+                </div>
+                <div class="validated-form edit-nade-description-div" id="edit-nade-description-div<%=index%>">
+                  <textarea form="edit-nade-description-form<%=index%>" class="form-control edit-description-textarea" 
+                    id="edit-nade-description<%=index%>" name="nade<%=index%>[description]"><%=nade.description%></textarea>
+                  <button form="edit-nade-description-form<%=index%>" class="btn btn-success description-submit-button" id="description-submit-button<%=index%>">&#10003;</button>
+                </div>
+                
+              </div>
+              <div>
+                <button type="button" class="btn btn-warning edit-nade-button" id="editNade<%=index %>">
+                  <img class="editImage"src="/img/edit.svg">
+                </button>
+                <button class="btn btn-danger" form="deleteNade<%=index%>">X</button>
+              </div>
+            </div>
+            <br>
+          <% } %> 
+          <button type="button" class="btn btn-secondary" id="toggle-nade-form-button">Add nade</button>
+          <div class="validated-form hidden nade-form" id="nade-form-div">
+            <div class="mb-3">
+              <label class="form-label" for="nadeName">Nade Type</label>
+              <select form="nade-form" class="form-select" name="nade[name]" id="nadeName">
+                <option value=""> </option>
+                <% for(let nade of nades){ %> 
+                  <option value="<%= nade %>"><%=nade %> </option>
+                <% } %> 
+              </select>
+              <div class="valid-feedback"> Looks good!</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="nadeDescription">Nade Description</label>
+              <input form="nade-form" class="form-control" type="text" id="nadeDescription" name="nade[description]">
+              <div class="valid-feedback"> Looks good!</div>
+            </div>
+            <button form="nade-form" class="btn btn-success">Add Nade</button>
+          </div>
+      </div>
+      <div class="mb-3">
         <label class="form-label" for="role">Role</label>
-        <select class="form-select" name="player[role]" id="role">
+        <select form="main-form" class="form-select" name="player[role]" id="role">
           <option value=""> </option>
           <% for(let role of roles){ %> 
             <option value="<%= role %>" <%= role === player.role ? 'selected' : ''%> ><%=role %> </option>
@@ -71,31 +83,25 @@
       </div>
       <div class="mb-3">
         <label class="form-label" for="location">Position</label>
-        <textarea class="form-control" type="text" id="position" name="player[position]" required><%=player.position%></textarea>
+        <textarea form="main-form" class="form-control" type="text" id="position" name="player[position]" required><%=player.position%></textarea>
         <div class="valid-feedback"> Looks good!</div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="description">Description</label>
-        <textarea class="form-control" type="text" id="description" name="player[description]" required><%=player.description%></textarea>
+        <textarea form="main-form" class="form-control" id="description" name="player[description]" required><%=player.description%></textarea>
         <div class="valid-feedback"> Looks good!</div>
       </div>
 
       <div class="mb-3">
-        <button class="btn btn-info">Update strategy</button>
+        <button form="main-form" class="btn btn-info">Update strategy</button>
       </div>
-    </form>
+    </div>
     
     <a href="/strategies/<%=player.strategyId%>">Back to strategy</a>
     
   </div>
 </div>
 
-<% for(let nade of nades){%>
-  <form id="add<%=nade%>" class="d-inline" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/add/<%=nade %>" method="POST">
-  </form>
-<% } %> 
-<% for(let [index, nade] of player.utility.entries()) { %> 
-  <form class="d-none" action="/strategies/<%=player.strategyId%>/player/<%=player._id%>/nade/<%=nade._id%>?_method=DELETE" method="POST" id="deleteNade<%=index%>"></form>
-<% } %> 
 <script src="/js/utility.js"></script>
 <script src="/js/toggleNadeForm.js"></script>
+
