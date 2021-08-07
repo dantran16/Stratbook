@@ -1,0 +1,20 @@
+
+.nades-div{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.nade-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 1 auto;
+}
+
+
+.nade-description{
+  margin-left: 5px;
+}

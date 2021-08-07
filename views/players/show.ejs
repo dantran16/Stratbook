@@ -1,14 +1,14 @@
 <% layout('/layouts/boilerplate')%>
-<link rel="stylesheet" href="/css/collapse.css">
+<link rel="stylesheet" href="/css/playerShow.css">
 <div class="row">
   <div class="col-12">
     <div class="card mb-3 text-center">
       <div class="card-body">
         <h2 class="card-title"><% if(player.name) { %> <%= player.name %> / <% } %><%= player.role %></h2>
         <% if(player.name) { %> <h3 class="card-text"><%= player.position %></h3> <% } %> 
-        <div class="card-body">
+        <div class="card-body nades-div">
           <% for(let [index, nade] of player.utility.entries()) { %> 
-            <div>
+            <div class="nade-container mb-3">
               <img src="/img/<%=nade.name %>.png" alt="<%=nade.name %> " srcset="">
               <div class="nade-description" id="description<%=index%>">
                 <span><%=nade.description %></span>
