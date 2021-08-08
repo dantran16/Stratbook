@@ -6,13 +6,17 @@ const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
 
 //importing local packages
 const ExpressError = require('./utils/ExpressError.js');
 
 //Routes
-const strategies = require('./routes/strategies');
-const players = require('./routes/players');
+const usersRoutes = require('./routes/users')
+const strategiesRoutes = require('./routes/strategies');
+const playersRoutes = require('./routes/players');
 
 //Mongoose setup
 mongoose.connect('mongodb://localhost:27017/stratbook', {
@@ -54,16 +58,32 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
+//Middleware for user functionality
+app.use(passport.initialize());
+app.use(passport.session());
+
+// use static authenticate method of model in LocalStrategy
+// passport.use(new LocalStrategy(User.authenticate()));
+passport.use(User.createStrategy());
+
+
+// use static serialize and deserialize of model for passport session support
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // Cookie/session variables
 app.use((req, res, next) => {
+  console.log(req.session);
+  res.locals.currentUser = req.user;
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
   next();
 });
 
 //Routes
-app.use('/strategies', strategies);
-app.use('/strategies/:strategyId/player/:id', players);
+app.use('/', usersRoutes)
+app.use('/strategies', strategiesRoutes);
+app.use('/strategies/:strategyId/player/:id', playersRoutes);
 
 //Home page
 app.get('/', (req, res) =>{
