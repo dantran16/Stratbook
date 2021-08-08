@@ -1,3 +1,12 @@
 .hidden{
   display: none;
 }
+
+.navbar-collapse{
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.navbar-collapse > * {
+  margin: auto 5px;
+}
