@@ -16,6 +16,7 @@
           <img class="d-inline" src="/img/people.svg" alt="People icon">
           <%= strategy.players.length %> People
         </li>
+        <% //if(currentUser && strategy.team.equals(currentUser.team._id)){ %> 
         <li class="list-group-item">
           <button class="btn btn-info" id="toggle-add-player-form">Add player</button>
           <a class="card-link btn btn-warning" href="/strategies/<%=strategy._id%>/edit">Edit</a> 
@@ -53,6 +54,7 @@
             <button class="d-block mx-auto btn btn-success">Submit</button>
           </form>
         </li>
+        <% //} %> 
       </ul>
     </div>
   </div>
@@ -72,6 +74,7 @@
             </div>
             <p class="card-text"><%= player.description %></p>
           </div>
+          <% //if(currentUser && strategy.team.equals(currentUser.team._id)) %> 
           <div class="card-body">
             <a class="btn btn-info" href="/strategies/<%=strategy._id%>/player/<%=player._id%>">View</a> 
             <a class="btn btn-warning" href="/strategies/<%=strategy._id%>/player/<%=player._id%>/edit">Edit</a> 
@@ -79,6 +82,7 @@
               <button class="btn btn-danger">Delete</button>
             </form>
           </div>
+          <% //} %> 
         </div>
       </div>
     <% } %> 

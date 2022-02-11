@@ -7,7 +7,8 @@ const nadeSchema = new Schema({
     enum: ['molotov', 'grenade', 'smoke', 'flash', 'decoy']
   },
   description: {
-    type: String
+    type: String,
+    required: true
   }
 })
 

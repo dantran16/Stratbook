@@ -18,7 +18,10 @@ const StrategySchema = new Schema({
       'de_vertigo', 
       'de_train']
   },
-  description: String,
+  description: {
+    type: String,
+    required: true
+  },
   players: [
     {
       type: Schema.Types.ObjectId,

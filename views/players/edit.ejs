@@ -56,7 +56,6 @@
             <div class="mb-3">
               <label class="form-label" for="nadeName">Nade Type</label>
               <select form="nade-form" class="form-select" name="nade[name]" id="nadeName">
-                <option value=""> </option>
                 <% for(let nade of nades){ %> 
                   <option value="<%= nade %>"><%=nade %> </option>
                 <% } %> 

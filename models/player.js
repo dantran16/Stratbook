@@ -1,9 +1,11 @@
+const { required } = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PlayerSchema = new Schema({
   name: {
-    type: String, 
+    type: String,
+    required: true
   },
   role: {
     type: String,
@@ -41,10 +43,12 @@ const PlayerSchema = new Schema({
   }],
   position: {
     type: String,
+    required: true
   },
   description: {
-    type: String
-  }
+    type: String,
+    required: true
+  },
 })
 
 module.exports = mongoose.model('Player', PlayerSchema);
