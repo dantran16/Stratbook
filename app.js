@@ -10,7 +10,7 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const MongoStore = require('connect-mongo');
+const MongoStore = require("connect-mongo");
 
 const User = require("./models/user");
 const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/stratbook";
@@ -44,24 +44,23 @@ app.use(
 	express.urlencoded({
 		extended: true,
 	})
-); 
+);
 app.use(methodOverride("_method")); //to allow us to use other HTTP verbs besides just POST and GET
 app.use(express.static(path.join(__dirname, "public"))); //Allows us to use public directory on our templates
 
-
 const store = MongoStore.create({
-  mongoUrl: dbUrl,
-  secret: 'secret',
-  touchAfter: 24 * 60 * 60
+	mongoUrl: dbUrl,
+	secret: "secret",
+	touchAfter: 24 * 60 * 60,
 });
 
-store.on('error', e => {
-  console.log ("Session store error!", e)
-})
+store.on("error", (e) => {
+	console.log("Session store error!", e);
+});
 
 //Setting up cookies
 const sessionConfig = {
-  store,
+	store,
 	secret: "secret",
 	resave: false,
 	saveUninitialized: true,
@@ -116,6 +115,8 @@ app.use((err, req, res, next) => {
 	});
 });
 
-app.listen(3000, () => {
-	console.log("App is listening on port 3000!");
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+	console.log(`App is listening on port ${port}`);
 });
